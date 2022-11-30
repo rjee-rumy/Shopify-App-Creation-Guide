@@ -197,20 +197,20 @@ Shopify App Creation Guide
   ADD  middleware in  Kernel.php file at  last 
     'custom.billable' => \Illuminate\Auth\Middleware\CustomBillable::class,
 
-- 26: 
- <?php 
-    /* 
-        <div class="bottom">
-             <a href="{{ route('billing', ['plan' => $plans[0]->id ]) }}">Buy Now</a>
-        </div>
-        <div class="bottom">
-             <a href="{{ route('billing', ['plan' => $plans[1]->id ]) }}">Buy Now</a>
-        </div>
+- 26:    
+  ```
+    <div class="bottom">
+         <a href="{{ route('billing', ['plan' => $plans[0]->id ]) }}">Buy Now</a>
+    </div>
+    <div class="bottom">
+         <a href="{{ route('billing', ['plan' => $plans[1]->id ]) }}">Buy Now</a>
+    </div>
 
-        <div class="bottom">
-            <a href="{{ route('free.plan') }}">Get Access</a>
-        </div>
-    */
+    <div class="bottom">
+        <a href="{{ route('free.plan') }}">Get Access</a>
+    </div>
+  ```
+
 - 27 :  
     Route::get('/free-plan', function(){
         User::where('id' , auth()->user()->id )->update(
