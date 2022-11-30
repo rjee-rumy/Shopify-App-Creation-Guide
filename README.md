@@ -1,10 +1,10 @@
 # Shopify-App-Creation-Guide
 Shopify App Creation Guide
 
-# {{  -------------------------------------------------------------------------------------------------------------  }} 
-# {{  -----------------       How To Create Laravel Shopify Apps using Osiset Package       -------------------   }}
+- {{  -------------------------------------------------------------------------------------------------------------  }} 
+- {{  -----------------       How To Create Laravel Shopify Apps using Osiset Package       -------------------   }}
                   {   https://github.com/osiset/laravel-shopify/wiki/Creating-Webhooks   }
-# {{  -------------------------------------------------------------------------------------------------------------  }} 
+- {{  -------------------------------------------------------------------------------------------------------------  }} 
 
 1: download laragon with php 7.4
 2: composer create-project --prefer-dist laravel/laravel:^7.0 test_app
