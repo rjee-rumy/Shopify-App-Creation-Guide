@@ -37,35 +37,61 @@ Shopify App Creation Guide
   ```
   
 - 9: Edit file ---> app/User.php or app/Models/User.php
+  
+  ```
   use Osiset\ShopifyApp\Contracts\ShopModel as IShopModel;
   use Osiset\ShopifyApp\Traits\ShopModel;
   class User extends Authenticatable implements IShopModel
   use ShopModel;
-
-- 10: For 16.* package use --->  ( auth.shopify  )
-  #                           OR
-- 10: For 17.* package use --->  ( verify.shopify  )
-
+  ```
+  
+- 10: For 16.* 
+  ```
+  package use --->  ( auth.shopify  )
+  ```
+#                           OR
+- 10: For 17.* 
+  ```
+  package use --->  ( verify.shopify  )
+  ```
+  
 - 11:  handle missing domainName exception  goto ---> app\Exceptions\Handler.php  & paste this code their
+  
+  ```
   public function render($request, Throwable $exception){
         if( $exception instanceof \Osiset\ShopifyApp\Exceptions\MissingShopDomainException ){
             return response()->view('login', [], 500);
         }
         return parent::render($request, $exception);
   }
+  ```
 
 - 12: Create login view ( login.blade.php ) 
+  
+  ```
   <form class="row g-4" action="{{ url('/authenticate') }}" method="GET">
      <div class="input-group mb-3">
          <input name="shop" type="text" class="form-control" placeholder="example.myshopify.com" aria-label="Recipient's username" aria-describedby="button-addon2">
          <button class="btn btn-outline-success" type="submit" id="button-addon2">Install</button>
       </div>
   </form>
+  ```
 
-- 13: For Non-embaded app do {  'appbridge_enabled' => (bool) env('SHOPIFY_APPBRIDGE_ENABLED', false)   }
-  #                          OR
-- 13: For Embaded app do {  'appbridge_enabled' => (bool) env('SHOPIFY_APPBRIDGE_ENABLED', true)   }
-- 14: For creating webHooks  {  php artisan shopify-app:make:webhook [name] [topic]    }
+- 13: For Non-embaded app do 
+  ```
+  'appbridge_enabled' => (bool) env('SHOPIFY_APPBRIDGE_ENABLED', false)
+  ```
+#                          OR
+- 13: For Embaded app do 
+```
+'appbridge_enabled' => (bool) env('SHOPIFY_APPBRIDGE_ENABLED', true)
+```
+
+- 14: For creating webHooks  {  
+  ```
+  php artisan shopify-app:make:webhook [name] [topic]
+  ```
+  
   #              EXAMPLE ::-->   php artisan shopify-app:make:webhook OrdersCreateJob orders/create
 
 - 15: After create webHook we have to config it in {   config/shopify-app.php  } File.
