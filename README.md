@@ -91,11 +91,11 @@ Shopify App Creation Guide
   ```
   php artisan shopify-app:make:webhook [name] [topic]
   ```
-  
   #              EXAMPLE ::-->   php artisan shopify-app:make:webhook OrdersCreateJob orders/create
 
 - 15: After create webHook we have to config it in {   config/shopify-app.php  } File.
     LIKE :: -->  
+    ```
       [
         'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'orders/create'),
         'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://some-app.com/webhook/orders-create')
@@ -104,37 +104,47 @@ Shopify App Creation Guide
         'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'themes/publish'),
         'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://some-app.com/webhook/themes-publish')
       ],
+     ```
 
-- 16: Change it in env file like this 
+- 16: Change it in .env file like this 
     LIKE :: -->  
+    ```
       SHOPIFY_WEBHOOK_1_TOPIC=orders/create
       SHOPIFY_WEBHOOK_1_ADDRESS="${APP_URL}/webhook/orders-create"
       SHOPIFY_WEBHOOK_1_TOPIC=themes/publish
       SHOPIFY_WEBHOOK_1_ADDRESS="${APP_URL}/webhook/themes-publish"
+    ```
 
-- 17:  ADD  Shopify scopes in the scope in env file  {  https://shopify.dev/api/usage/access-scopes   }
+- 17:  ADD  Shopify scopes in the scope in .env file  {  https://shopify.dev/api/usage/access-scopes   }
     LIKE :: -->  
                              
 - 18: Create an web Route to clear cache  in database for webhooks    {  https://shopify.dev/api/admin-rest/2022-04/resources/webhook   }
-    LIKE::-->  
+    LIKE::--> 
+    ```
        Route::get('/clear-cache', function() {
                Artisan::call('cache:clear');
                return "Cache is cleared";
        });
-
+    ```
+    
 - 19:  Add Laravel logs Viewer package to view errors in detailed UI   {  https://github.com/R-jee/laravel-log-viewer  }
-    LIKE::-->       
+    LIKE::-->   
+    ```
        Install via composer
                  composer require rap2hpoutre/laravel-log-viewer
        Add Service Provider to config/app.php in providers section
                  Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
        Add a route in your web routes file:
                  Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
-
+    ```
+    
 - 20:    Log::info($input);
+
 - 21:    php artisan make:model --migration --controller webhookJobs
+
 - 22:  Create Charging Plans
   #     ---> create seeds in database section PlanSeeder.php
+  ```
        <?php
           use Illuminate\Database\Seeder;
           use Osiset\ShopifyApp\Storage\Models\Plan;
@@ -194,12 +204,14 @@ Shopify App Creation Guide
 
               }
           }
+  ```
 
 - 23 :  php artisan make:seeder PlanSeeder  ------->    php artisan db:seed
 
-
 - 24 :  php artisan make:middleware CustomBillable
+
 - 25:  
+  ```
     <?php
       namespace App\Http\Middleware;
       use Closure;
@@ -227,9 +239,13 @@ Shopify App Creation Guide
               return $next($request);
           }
       }
-  ADD  middleware in  Kernel.php file at  last 
+  ```
+  
+  # ADD  middleware in  Kernel.php file at  last 
+  ```
     'custom.billable' => \Illuminate\Auth\Middleware\CustomBillable::class,
-
+  ```
+  
 - 26:    
   ```
     <div class="bottom">
@@ -245,6 +261,7 @@ Shopify App Creation Guide
   ```
 
 - 27 :  
+  ```
     Route::get('/free-plan', function(){
         User::where('id' , auth()->user()->id )->update(
             [
@@ -254,8 +271,10 @@ Shopify App Creation Guide
         );
         return redirect()->route('home');
     })->name('free.plan');  
-
+  ```
+  
 - 28:  App proxy in app
+  ```
     Route::get('checkSetupStatus', 'CartButtonhiderDetailController@checkSetupStatus')->name('check.SetupStatus')->middleware(['auth.proxy']);
         public function checkSetupStatus(){
             $shop = User::where('name', request('shop'))->first();
@@ -265,9 +284,10 @@ Shopify App Creation Guide
                 return response()->json(['status' => false]);
             }
         }
-
-    After Authentication Job --> 
-         php artisan make:job AfterAuthenticateJob
+  ```
+  
+# After Authentication Job -->
+  - php artisan make:job AfterAuthenticateJob
 
 
  
