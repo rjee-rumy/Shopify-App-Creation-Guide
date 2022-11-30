@@ -3,40 +3,37 @@ Shopify App Creation Guide
 
 - {{  -------------------------------------------------------------------------------------------------------------  }} 
 - {{  -----------------       How To Create Laravel Shopify Apps using Osiset Package       -------------------   }}
---                  {   https://github.com/osiset/laravel-shopify/wiki/Creating-Webhooks   }
+                      {   https://github.com/osiset/laravel-shopify/wiki/Creating-Webhooks   }
 - {{  -------------------------------------------------------------------------------------------------------------  }} 
 
-1: download laragon with php 7.4
-2: composer create-project --prefer-dist laravel/laravel:^7.0 test_app
-3: composer require osiset/laravel-shopify:16.* (  for Non-Embend App's )
-                                                      OR
-3: composer require osiset/laravel-shopify:17.* (  for Embend App's )
-4: php artisan vendor:publish --tag=shopify-config
-5: https://(your-domain).com/ ( Your app dir URL )
-6: https://(your-domain).com/authenticate ( in app create section add Rediect's URL )
-7: edit file ---> routes/web.php and modify the default route 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware(['verify.shopify'])->name('home');
+- 1: download laragon with php 7.4
+- 2: composer create-project --prefer-dist laravel/laravel:^7.0 test_app
+- 3: composer require osiset/laravel-shopify:16.* (  for Non-Embend App's )
+#                                                      OR
+- 3: composer require osiset/laravel-shopify:17.* (  for Embend App's )
+- 4: php artisan vendor:publish --tag=shopify-config
+- 5: https://(your-domain).com/ ( Your app dir URL )
+- 6: https://(your-domain).com/authenticate ( in app create section add Rediect's URL )
+- 7: edit file ---> routes/web.php and modify the default route 
+- Route::get('/', function () { return view('welcome'); })->middleware(['verify.shopify'])->name('home');
+- 8: Modify file --->  resources/views/welcome.blade.php 
+  @extends('shopify-app::layouts.default')
+  @section('content')
+      <!-- You are: (shop domain name) -->
+      <p>You are: {{ $shopDomain ?? Auth::user()->name }}</p>
+  @endsection
+  @section('scripts')
+      @parent
+      <script>
+          actions.TitleBar.create(app, { title: 'Welcome' });
+      </script>
+  @endsection
 
-8: Modify file --->  resources/views/welcome.blade.php 
-@extends('shopify-app::layouts.default')
-@section('content')
-    <!-- You are: (shop domain name) -->
-    <p>You are: {{ $shopDomain ?? Auth::user()->name }}</p>
-@endsection
-@section('scripts')
-    @parent
-    <script>
-        actions.TitleBar.create(app, { title: 'Welcome' });
-    </script>
-@endsection
-
-9: Edit file ---> app/User.php or app/Models/User.php
-use Osiset\ShopifyApp\Contracts\ShopModel as IShopModel;
-use Osiset\ShopifyApp\Traits\ShopModel;
-class User extends Authenticatable implements IShopModel
-use ShopModel;
+- 9: Edit file ---> app/User.php or app/Models/User.php
+  use Osiset\ShopifyApp\Contracts\ShopModel as IShopModel;
+  use Osiset\ShopifyApp\Traits\ShopModel;
+  class User extends Authenticatable implements IShopModel
+  use ShopModel;
 
 10: For 16.* package use --->  ( auth.shopify  )
                            OR
