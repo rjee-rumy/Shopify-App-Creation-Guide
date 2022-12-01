@@ -95,7 +95,22 @@ Shopify App Creation Guide
 
 - 15: After create webHook we have to config it in {   config/shopify-app.php  } File.
     LIKE :: -->  
+    
     ```
+        /*
+        |--------------------------------------------------------------------------
+        | Shopify Webhooks
+        |--------------------------------------------------------------------------
+        |
+        | This option is for defining webhooks.
+        | `topic` is the GraphQL value of the Shopify webhook event.
+        | `address` is the endpoint to call.
+        |
+        | Valid values for `topic` can be found here:
+        | https://shopify.dev/api/admin/graphql/reference/events/webhooksubscriptiontopic
+        |
+        */
+    
       [
          'topic' => env('SHOPIFY_WEBHOOK_0_TOPIC', 'APP_UNINSTALLED'),
          'address' => env('SHOPIFY_WEBHOOK_0_ADDRESS', 'https://your-domain.com/webhook/app-uninstalled')
