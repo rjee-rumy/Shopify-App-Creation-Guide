@@ -90,6 +90,7 @@ Shopify App Creation Guide
 - 14: For creating webHooks  {  
   ```
   php artisan shopify-app:make:webhook [name] [topic]
+  / for valid topics --->  refer -->>> https://shopify.dev/api/admin/graphql/reference/events/webhooksubscriptiontopic
   ```
   #              EXAMPLE ::-->   php artisan shopify-app:make:webhook OrdersCreateJob orders/create
 
