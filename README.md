@@ -97,6 +97,14 @@ Shopify App Creation Guide
     LIKE :: -->  
     ```
       [
+         'topic' => env('SHOPIFY_WEBHOOK_0_TOPIC', 'APP_UNINSTALLED'),
+         'address' => env('SHOPIFY_WEBHOOK_0_ADDRESS', 'https://your-domain.com/webhook/app-uninstalled')
+      ],
+      [
+        'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'PRODUCTS_CREATE'),
+        'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://some-app.com/webhook/products-create')
+      ],
+      [
         'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'orders/create'),
         'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://some-app.com/webhook/orders-create')
       ],
