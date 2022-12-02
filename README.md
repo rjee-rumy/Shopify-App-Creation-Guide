@@ -114,11 +114,11 @@ Shopify App Creation Guide
         */
     
       [
-         'topic' => env('SHOPIFY_WEBHOOK_0_TOPIC', 'APP_UNINSTALLED'),
+         'topic' => env('SHOPIFY_WEBHOOK_0_TOPIC', 'APP_UNINSTALLED'), // APP_UNISTALLED  ===>  "app/uninstalled"
          'address' => env('SHOPIFY_WEBHOOK_0_ADDRESS', 'https://your-domain.com/webhook/app-uninstalled')
       ],
       [
-        'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'PRODUCTS_CREATE'),
+        'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'PRODUCTS_CREATE'), // PRODUCTS_CREATE  ===>  "products/create"
         'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://some-app.com/webhook/products-create')
       ],
       [
