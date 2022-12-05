@@ -112,7 +112,17 @@ Shopify App Creation Guide
         | https://shopify.dev/api/admin/graphql/reference/events/webhooksubscriptiontopic
         |
         */
-    
+                  /* 
+                    SHOPIFY_WEBHOOK_1_TOPIC=orders/create
+                    SHOPIFY_WEBHOOK_1_ADDRESS="${APP_URL}/webhook/orders-create"
+
+                    SHOPIFY_WEBHOOK_2_TOPIC=themes/publish
+                    SHOPIFY_WEBHOOK_2_ADDRESS="${APP_URL}/webhook/themes-publish"
+
+                    SHOPIFY_WEBHOOK_3_TOPIC=app/uninstalled
+                    SHOPIFY_WEBHOOK_3_ADDRESS="${APP_URL}/webhook/app-uninstalled"
+                   
+                 */
       [
          'topic' => env('SHOPIFY_WEBHOOK_0_TOPIC', 'APP_UNINSTALLED'), // APP_UNISTALLED  ===>  "app/uninstalled"
          'address' => env('SHOPIFY_WEBHOOK_0_ADDRESS', 'https://your-domain.com/webhook/app-uninstalled')
